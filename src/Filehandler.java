@@ -1,12 +1,19 @@
 import Members.Member;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Filehandler {
+
+    public static void writeMembersToFile(ArrayList<Member> memberList){
+        try  {
+            ObjectOutputStream outPutStream = new ObjectOutputStream(new FileOutputStream("src/Files/members.ser",false));
+            outPutStream.writeObject(memberList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static ArrayList<Member> readMembersFromFile(){
         if ((!fileIsEmpty("src/Files/members.ser"))) {
             try {
