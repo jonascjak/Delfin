@@ -13,7 +13,7 @@ public class Member {
     protected boolean isJunior;
     protected boolean isSenior;
 
-    public Member(int memberID, String name, LocalDate birthdate, boolean isMale, boolean isActive, boolean isJunior, boolean isSenior){
+    public Member(int memberID, String name, LocalDate birthdate, boolean isMale, boolean isActive){
         this.memberID = memberID;
         this.Name = name;
         this.birthdate = birthdate;
@@ -28,7 +28,56 @@ public class Member {
     }
     public int calculateAge(){
         LocalDate currentDate = LocalDate.now();
+        if (birthdate == null || birthdate.isAfter(currentDate)){
+            System.out.println("Something went wrong with the persons age");
+        }
         Period age = Period.between(birthdate, currentDate);
         return age.getYears();
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "memberID=" + memberID +
+                ", Name='" + Name + '\'' +
+                ", birthdate=" + birthdate +
+                ", isMale=" + isMale +
+                '}';
+    }
+
+    public int getMemberID() {
+        return memberID;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public boolean isMale() {
+        return isMale;
+    }
+
+    public void setMale(boolean male) {
+        isMale = male;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
