@@ -1,6 +1,7 @@
 package Utility;
 import Members.CompetitionMember;
 import Members.Member;
+import Members.SwimmingDiscipline;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,21 +32,22 @@ public class memberHandler{
                     System.out.println("Invalid input. Please enter 'male' or 'female'");
                 }
             } while (gender == null);
-            System.out.println("Is the member active? \nPress 1 for yes\nPress 0 for no");
-            boolean isActive = true;
+            System.out.println("Is the member in debt? \nPress 1 for yes\nPress 0 for no");
+            boolean inDebt = true;
             int answer = ScannerHandler.scanInt(0,1);
             if(answer == 1) {
-                isActive = true;
+                inDebt = true;
             } else if (answer == 0) {
-                isActive = false;
+                inDebt = false;
             }
-            System.out.println("is the member part of swimming a swimming team? \nPress 1 for yes\nPress 0 for no");
+            System.out.println("is the member part of a swimming team? \nPress 1 for yes\nPress 0 for no");
             int isSwimmer = ScannerHandler.scanInt(0,1);
             if(isSwimmer == 0){
-                tempMember = new Member(tempID,tempName, tempBirthdate, tempGender, isActive);
+                tempMember = new Member(tempID,tempName, tempBirthdate, tempGender, inDebt);
                 System.out.println("The following member has been added to the club: " + tempMember);
             } else{
-                tempMember = new CompetitionMember(tempID,tempName, tempBirthdate, tempGender, isActive, null, null);
+                ArrayList<SwimmingDiscipline> tempDisciplines = swimmingHandler.swimmingDisciplines();
+                tempMember = new CompetitionMember(tempID,tempName, tempBirthdate, tempGender, inDebt, null, tempDisciplines);
                 if(tempMember.isJunior){
                     juniorTeam.add(tempMember);
                 } else{
@@ -62,28 +64,14 @@ public class memberHandler{
         Member tempMember = null;
         int answer = ScannerHandler.scanInt(0,2);
         do{
-            System.out.println("Which member do you wanna edit from the club?\nPress 1 to search by name\nPress 2 to search by id\nPress 0 to go back");
-            switch (answer) {
-                case 1:
-                    System.out.println("What is the name of the member?");
-                    String tempName = ScannerHandler.scanString();
-                    tempMember = searchName(tempName);
-                    break;
-                case 2:
-                    System.out.println("What is the ID of the member?");
-                    int tempID = ScannerHandler.scanInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
-                    tempMember = searchID(tempID);
-                    break;
-                case 0:
-                    return;
-            }
+          searchMember();
         }while (tempMember == null);
         while (true) {
             System.out.println("Which part of the member do you want to edit?");
             System.out.println("1. Name");
             System.out.println("2. Birthdate");
             System.out.println("3. Sex");
-            System.out.println("4. Activity Status");
+            System.out.println("4. Debt Status");
             System.out.println("0. Exit");
             int choice = ScannerHandler.scanInt(0, 4);
             switch (choice) {
@@ -115,21 +103,15 @@ public class memberHandler{
                     tempMember.setMale(tempGender);
                     break;
                 case 4:
-                    String active;
-                    boolean isActive = true;
-                    do {
-                        System.out.println("Enter active status (active/inactive):");
-                        active = ScannerHandler.scanString();
-                        if(active.equalsIgnoreCase("active")) {
-                            isActive = true;
-                        } else if (active.equalsIgnoreCase("inactive")) {
-                            isActive = false;
-                        } else {
-                            active = null;
-                            System.out.println("Invalid input. Please enter 'active' or 'inactive'");
+                    boolean inDebt = true;
+                        System.out.println("Is the member in debt? \nPress 1 for yes\nPress 0 for no");
+                        int debt = ScannerHandler.scanInt(0,1);
+                        if(debt == 1) {
+                            inDebt = true;
+                        } else if (debt == 0) {
+                            inDebt = false;
                         }
-                    } while (active == null);
-                    tempMember.setActive(isActive);
+                    tempMember.setInDebt(inDebt);
                     break;
                 case 0:
                     return;
@@ -143,21 +125,7 @@ public class memberHandler{
         do {
             Member tempMember = null;
             do{
-                System.out.println("Which member do you wanna remove from the club?\nPress 1 to search by name\nPress 2 to search by id\nPress 0 to go back");
-                switch (choice) {
-                    case 1:
-                        System.out.println("What is the name of the member?");
-                        String tempName = ScannerHandler.scanString();
-                        tempMember = searchName(tempName);
-                        break;
-                    case 2:
-                        System.out.println("What is the ID of the member?");
-                        int tempID = ScannerHandler.scanInt(Integer.MIN_VALUE,Integer.MAX_VALUE);
-                        tempMember = searchID(tempID);
-                        break;
-                    case 0:
-                        return;
-                }
+               tempMember = searchMember();
             } while (tempMember == null);
             System.out.println("The following member has been removed from the club: "+tempMember);
             memberList.remove(tempMember);
@@ -165,6 +133,13 @@ public class memberHandler{
             memberDeleted = true;
         }while (!memberDeleted);
     }
+
+    public static void allMembers() {
+        for(Member member : memberList){
+            System.out.println(member);
+        }
+    }
+
     private static int generateUniqueId() {
         int newId;
         do {
@@ -181,7 +156,25 @@ public class memberHandler{
         }
         return true;
     }
-
+    public static Member searchMember(){
+            System.out.println("Which member from the club?\nPress 1 to search by name\nPress 2 to search by id\nPress 0 to go back");
+            int answer = ScannerHandler.scanInt(0,2);
+            switch (answer) {
+                case 1:
+                    System.out.println("What is the name of the member?");
+                    String tempName = ScannerHandler.scanString();
+                    return searchName(tempName);
+                case 2:
+                    System.out.println("What is the ID of the member?");
+                    int tempID = ScannerHandler.scanInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
+                    return searchID(tempID);
+                case 0:
+                    return null;
+                default:
+                    System.out.println("Invalid input.");
+                    return null;
+            }
+    }
     public static Member searchName(String memberName){
         for (Member member : memberList) {
             if (member.getName().equalsIgnoreCase(memberName)) {
@@ -198,7 +191,35 @@ public class memberHandler{
                 return member;
             }
         }
-        System.out.println("Sorry no member with that name was found");
+        System.out.println("Sorry no member with that ID was found");
         return null;
+    }
+    public static int specificPrice(){
+        Member tempMember = searchMember();
+        return tempMember.calculatePrice();
+    }
+
+    public static int revenue(){
+        int revenue = 0;
+        for (Member member : memberList){
+            revenue += member.calculatePrice();
+        }
+        return revenue;
+    }
+    public static void allDebt(){
+        int totalDebt = 0;
+        for(Member member : memberList){
+            if(member.isInDebt()){
+                System.out.println(member);
+                totalDebt += member.calculatePrice();
+            }
+        }
+        System.out.println("The total of all debt is: "+totalDebt);
+    }
+
+    public static void printTeam(ArrayList<Member> team){
+        for(Member member : team){
+            System.out.println(member);
+        }
     }
 }

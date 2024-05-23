@@ -1,8 +1,9 @@
 package Members;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Competition {
+public class Competition implements Serializable {
     private String competitionName;
     private LocalDate competitionDate;
     private double lapTime; // lap time in seconds

@@ -7,14 +7,23 @@ import java.util.InputMismatchException;
 
 public class CompetitionMember extends Member {
     protected ArrayList<Competition> competitions;
-    protected ArrayList<String> swimmingDisciplines;
-    public CompetitionMember(int memberID, String name, LocalDate birthdate, boolean isMale, boolean isActive, ArrayList<Competition> competitions, ArrayList<String> swimmingDisciplines) {
+    protected ArrayList<SwimmingDiscipline> swimmingDisciplines;
+    public CompetitionMember(int memberID, String name, LocalDate birthdate, boolean isMale, boolean isActive, ArrayList<Competition> competitions, ArrayList<SwimmingDiscipline> swimmingDisciplines) {
         super(memberID, name, birthdate, isMale, isActive);
         ageCategory();
-        this.competitions = new ArrayList<>();
-        this.swimmingDisciplines = new ArrayList<>();
+        this.competitions = competitions;
+        this.swimmingDisciplines = swimmingDisciplines;
     }
-
+    @Override
+    public int calculatePrice() {
+        if (isJunior) {
+            return 1000;
+        } else if (isSenior) {
+            return 1400;
+        } else {
+            return 1600;
+        }
+    }
     public ArrayList<Competition> getCompetitions() {
         return competitions;
     }
@@ -25,11 +34,11 @@ public class CompetitionMember extends Member {
         } catch (InputMismatchException ignored){}
     }
 
-    public ArrayList<String> getSwimmingDisciplines() {
+    public ArrayList<SwimmingDiscipline> getSwimmingDisciplines() {
         return swimmingDisciplines;
     }
 
-    public void setSwimmingDisciplines(String discipline) {
+    public void setSwimmingDisciplines(SwimmingDiscipline discipline) {
         if (!swimmingDisciplines.contains(discipline)) {
             swimmingDisciplines.add(discipline);
         }
@@ -37,16 +46,15 @@ public class CompetitionMember extends Member {
 
     @Override
     public String toString() {
-        StringBuilder disciplines = new StringBuilder();
-        for (String discipline : swimmingDisciplines) {
-            disciplines.append(discipline).append(", ");
+        StringBuilder disciplines = new StringBuilder(super.toString());
+        for (SwimmingDiscipline discipline : swimmingDisciplines) {
+            disciplines.append("\n").append(discipline.toString());
         }
-
+        /*
         StringBuilder membersCompetitions = new StringBuilder();
         for (Competition comp : competitions) {
             membersCompetitions.append(comp).append(", ");
-        }
-
-        return super.toString() + disciplines + membersCompetitions;
+        }*/
+        return disciplines.toString(); //+ membersCompetitions;
     }
 }

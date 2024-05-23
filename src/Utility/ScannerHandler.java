@@ -66,5 +66,9 @@ public class ScannerHandler {
             }
         }
     }
+
+    public static void clearScanner(){
+        scan.nextLine();
+    }
 }
 

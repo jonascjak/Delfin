@@ -10,16 +10,16 @@ public class Member implements Serializable {
     protected LocalDate birthdate;
 
     protected boolean isMale;
-    protected boolean isActive;
+    protected boolean inDebt;
     public boolean isJunior;
-    protected boolean isSenior;
+    public boolean isSenior;
 
-    public Member(int memberID, String name, LocalDate birthdate, boolean isMale, boolean isActive){
+    public Member(int memberID, String name, LocalDate birthdate, boolean isMale, boolean inDebt){
         this.memberID = memberID;
         this.Name = name;
         this.birthdate = birthdate;
         this.isMale = isMale;
-        this.isActive = isActive;
+        this.inDebt = inDebt;
         ageCategory();
     }
     protected void ageCategory(){
@@ -35,7 +35,9 @@ public class Member implements Serializable {
         Period age = Period.between(birthdate, currentDate);
         return age.getYears();
     }
-
+    public int calculatePrice() {
+        return 500; // Default price for regular members
+    }
     @Override
     public String toString() {
         return
@@ -73,11 +75,11 @@ public class Member implements Serializable {
         isMale = male;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isInDebt() {
+        return inDebt;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setInDebt(boolean inDebt) {
+        this.inDebt = inDebt;
     }
 }
