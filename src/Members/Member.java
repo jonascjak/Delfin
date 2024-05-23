@@ -37,12 +37,11 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member{" +
-                "memberID=" + memberID +
-                ", Name='" + Name + '\'' +
-                ", birthdate=" + birthdate +
-                ", isMale=" + isMale +
-                '}';
+        return
+            "member ID: " + memberID +
+            "\nName: " + Name +
+            "\nbirthdate: " + birthdate +
+            "\nSex: " + (isMale? "Male": "Female");
     }
 
     public int getMemberID() {
