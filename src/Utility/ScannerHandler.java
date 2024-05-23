@@ -12,6 +12,7 @@ public class ScannerHandler {
         while (true) {
             if (scan.hasNextInt()) {
                 value = scan.nextInt();
+                scan.nextLine();
                 if (value >= min && value <= max) {
                     break;
                 } else {
@@ -31,7 +32,7 @@ public class ScannerHandler {
                 return scan.nextLine();
             } catch (InputMismatchException ignored) {
                 System.out.println("Invalid input. Please try again.");
-                scan.next();
+                scan.nextLine();
             }
         }
     }
@@ -57,7 +58,7 @@ public class ScannerHandler {
     public static LocalDate scanDate(){
         while (true) {
             try {
-                String stringFormatter = scan.next();
+                String stringFormatter = scan.nextLine();
                 return LocalDate.parse(stringFormatter);
             } catch (InputMismatchException ignored) {
                 System.out.println("Invalid date format. Please enter a date in the format of YYYY-MM-DD");

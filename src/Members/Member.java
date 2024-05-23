@@ -1,16 +1,17 @@
 package Members;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Member {
+public class Member implements Serializable {
     protected int memberID;
     protected String Name;
     protected LocalDate birthdate;
 
     protected boolean isMale;
     protected boolean isActive;
-    protected boolean isJunior;
+    public boolean isJunior;
     protected boolean isSenior;
 
     public Member(int memberID, String name, LocalDate birthdate, boolean isMale, boolean isActive){
@@ -21,12 +22,12 @@ public class Member {
         this.isActive = isActive;
         ageCategory();
     }
-    public void ageCategory(){
+    protected void ageCategory(){
         int age = calculateAge();
         this.isJunior = age < 18;
         this.isSenior = age > 60;
     }
-    public int calculateAge(){
+    protected int calculateAge(){
         LocalDate currentDate = LocalDate.now();
         if (birthdate == null || birthdate.isAfter(currentDate)){
             System.out.println("Something went wrong with the persons age");
@@ -38,7 +39,7 @@ public class Member {
     @Override
     public String toString() {
         return
-            "member ID: " + memberID +
+            "\nmember ID: " + memberID +
             "\nName: " + Name +
             "\nbirthdate: " + birthdate +
             "\nSex: " + (isMale? "Male": "Female");

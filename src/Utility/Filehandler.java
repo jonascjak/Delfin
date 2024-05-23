@@ -9,7 +9,7 @@ public class Filehandler {
 
     public static void writeMembersToFile(ArrayList<Member> memberList){
         try  {
-            ObjectOutputStream outPutStream = new ObjectOutputStream(new FileOutputStream("src/Files/members.ser",false));
+            ObjectOutputStream outPutStream = new ObjectOutputStream(new FileOutputStream("src/Files/memberList.ser",false));
             outPutStream.writeObject(memberList);
         } catch (IOException e) {
             e.printStackTrace();
@@ -17,9 +17,9 @@ public class Filehandler {
     }
 
     public static ArrayList<Member> readMembersFromFile(){
-        if ((!fileIsEmpty("src/Files/members.ser"))) {
+        if ((!fileIsEmpty("src/Files/memberList.ser"))) {
             try {
-                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("src/Files/members.ser"));
+                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("src/Files/memberList.ser"));
                 return (ArrayList<Member>) objectInputStream.readObject();
             } catch (IOException | ClassNotFoundException e){
                 e.printStackTrace();

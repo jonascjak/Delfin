@@ -2,7 +2,7 @@ import Members.Member;
 import Utility.ScannerHandler;
 import Utility.memberHandler;
 
-import java.time.LocalDate;
+import java.util.Scanner;
 
 public class UI {
     public static void loginMenu(){
@@ -11,7 +11,6 @@ public class UI {
         System.out.println("press 2 for Cashier");
         System.out.println("press 3 for Coach");
         System.out.println("press 0 to Exit");
-        System.out.print("Enter your choice: ");
         int choice = ScannerHandler.scanInt(0,3);
         switch (choice) {
             case 1:
@@ -43,8 +42,10 @@ public class UI {
                 break;
             case 2:
                 memberHandler.editMember();
+                break;
             case 3:
                 memberHandler.deleteMember();
+                break;
             case 0:
                 loginMenu();
                 break;
