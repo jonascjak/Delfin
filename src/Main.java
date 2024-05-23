@@ -1,4 +1,3 @@
-import Members.CompetitionMember;
 import Members.Member;
 import Utility.Filehandler;
 
@@ -12,7 +11,7 @@ public class Main implements Serializable {
     public static ArrayList<Member> seniorTeam = Filehandler.readMembersFromFile();
 
     public static void main(String[] args) {
-
+        UI.loginMenu();
         // test code
         LocalDate birthdate = LocalDate.of(2000,2,2);
         Member temp = new Member(2,"John doe", birthdate,true, true);

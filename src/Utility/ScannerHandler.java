@@ -7,15 +7,22 @@ import java.util.Scanner;
 public class ScannerHandler {
     private static final Scanner scan = new Scanner(System.in);
 
-    public static int scanInt() {
+    public static int scanInt(int min, int max) {
+        int value;
         while (true) {
-            try {
-                return scan.nextInt();
-            } catch (InputMismatchException ignored) {
-                System.out.println("Invalid input. Please try again.");
+            if (scan.hasNextInt()) {
+                value = scan.nextInt();
+                if (value >= min && value <= max) {
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please try again");
+                }
+            } else {
+                System.out.println("Invalid input. Please try again");
                 scan.next();
             }
         }
+        return value;
     }
 
     public static String scanString() {
@@ -29,15 +36,22 @@ public class ScannerHandler {
         }
     }
 
-    public static double scanDouble(){
+    public static double scanDouble(double min, double max) {
+        double value;
         while (true) {
-            try {
-                return scan.nextDouble();
-            } catch (InputMismatchException ignored) {
-                System.out.println("Invalid input. Please try again.");
+            if (scan.hasNextDouble()) {
+                value = scan.nextDouble();
+                if (value >= min && value <= max) {
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please try again");
+                }
+            } else {
+                System.out.println("Invalid input. Please try again");
                 scan.next();
             }
         }
+        return value;
     }
 
     public static LocalDate scanDate(){
