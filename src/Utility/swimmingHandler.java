@@ -102,7 +102,7 @@ public class swimmingHandler {
                     done = true;
                 }
             }else {
-                System.out.println("That member isn't part of any swimming team");
+                System.out.println();
             }
     }
     private static void addDisciplineIfNotExists(ArrayList<SwimmingDiscipline> disciplines, String disciplineName) {
