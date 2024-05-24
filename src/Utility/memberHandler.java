@@ -225,7 +225,5 @@ public class memberHandler{
         }
     }
 
-    public double calculateMinimumKontingent() {
-        return 100.0;
-    }
+
 }
