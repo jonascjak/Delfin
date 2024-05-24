@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class SwimmingDiscipline implements Serializable {
+public class SwimmingDiscipline implements Serializable, Comparable<SwimmingDiscipline> {
     public String discipleName;
     public double bestTime;
     public LocalDate bestDate;
@@ -26,6 +26,9 @@ public class SwimmingDiscipline implements Serializable {
         }
     }
 
+    public int compareTo(SwimmingDiscipline other) {
+        return Double.compare(this.bestTime, other.bestTime);
+    }
     public String getDiscipleName() {
         return discipleName;
     }

@@ -46,15 +46,14 @@ public class CompetitionMember extends Member {
 
     @Override
     public String toString() {
-        StringBuilder disciplines = new StringBuilder(super.toString());
+        StringBuilder allString = new StringBuilder(super.toString());
         for (SwimmingDiscipline discipline : swimmingDisciplines) {
-            disciplines.append("\n").append(discipline.toString());
+            allString.append("\n").append(discipline.toString());
         }
 
-        StringBuilder membersCompetitions = new StringBuilder();
         for (Competition competition : competitions) {
-            membersCompetitions.append("\n").append(competition);
+            allString.append("\n").append(competition.toString());
         }
-        return disciplines.toString() + membersCompetitions;
+        return allString.toString();
     }
 }

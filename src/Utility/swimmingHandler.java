@@ -112,4 +112,47 @@ public class swimmingHandler {
         }
         disciplines.add(new SwimmingDiscipline(disciplineName, 0, null));
     }
+
+    public static void showTop5BestSwimmers(){
+        while (true) {
+            System.out.println("Select a discipline to see the top 5 best swimmers:");
+            System.out.println("1. Freestyle");
+            System.out.println("2. Backstroke");
+            System.out.println("3. Butterfly");
+            System.out.println("4. Breaststroke");
+            System.out.println("0. Exit");
+            int choice = ScannerHandler.scanInt(0,4);
+            String disciplineName = null;
+            switch (choice) {
+                case 1:
+                    disciplineName = "Freestyle";
+                    break;
+                case 2:
+                    disciplineName = "Backstroke";
+                    break;
+                case 3:
+                    disciplineName = "Butterfly";
+                    break;
+                case 4:
+                    disciplineName = "Breaststroke";
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    continue;
+            }
+
+            if (disciplineName != null) {
+                ArrayList<SwimmingDiscipline> top5BestSwimmers = memberHandler.getTop5BestSwimmersForDiscipline(team, disciplineName);
+
+                System.out.println("Top 5 Best Swimmers for Discipline: " + disciplineName);
+                for (SwimmingDiscipline discipline : top5BestSwimmers) {
+                    System.out.println(discipline);
+                }
+                System.out.println();
+            }
+        }
+    }
 }
