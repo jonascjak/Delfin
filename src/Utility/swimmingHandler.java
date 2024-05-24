@@ -68,6 +68,7 @@ public class swimmingHandler {
                             LocalDate bestDate = ScannerHandler.scanDate();
                             discipline.setBestDate(bestDate);
                             System.out.println("The new best time of "+newTime+" has been registered for the "+bestDate);
+                            Filehandler.writeMembersToFile(memberHandler.memberList);
                             done = true;
                             break;
                         }
@@ -174,7 +175,7 @@ public class swimmingHandler {
         ArrayList<CompetitionMember> membersForDiscipline = new ArrayList<>();
         for (CompetitionMember member : team) {
             for (SwimmingDiscipline discipline : member.getSwimmingDisciplines()) {
-                if (discipline.getDiscipleName().equals(disciplineName)) {
+                if (discipline.getDiscipleName().equalsIgnoreCase(disciplineName)) {
                     membersForDiscipline.add(member);
                     break;
                 }
@@ -199,7 +200,7 @@ public class swimmingHandler {
 
     private static double getBestTimeForDiscipline(CompetitionMember member, String disciplineName) {
         for (SwimmingDiscipline discipline : member.getSwimmingDisciplines()) {
-            if (discipline.getDiscipleName().equals(disciplineName)) {
+            if (discipline.getDiscipleName().equalsIgnoreCase(disciplineName)) {
                 return discipline.getBestTime();
             }
         }
