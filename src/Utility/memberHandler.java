@@ -10,9 +10,7 @@ public class memberHandler{
     public static ArrayList<Member> juniorTeam = Filehandler.readMembersFromFile();
     public static ArrayList<Member> seniorTeam = Filehandler.readMembersFromFile();
 
-    public double calculateMinimumKontingent() {
-        return 100.0;
-    }
+
     public static void addMember(){
         Member tempMember = null;
         do {
@@ -225,5 +223,9 @@ public class memberHandler{
         for(Member member : team){
             System.out.println(member);
         }
+    }
+
+    public double calculateMinimumKontingent() {
+        return 100.0;
     }
 }
