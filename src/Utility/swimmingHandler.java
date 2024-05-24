@@ -85,23 +85,25 @@ public class swimmingHandler {
     public static void addCompetition(){
         Member tempMember = memberHandler.searchMember();
         Competition tempCompetition = null;
-        do{
             if(tempMember instanceof CompetitionMember){
-                System.out.println("What was the name of the competition?");
-                String tempName = ScannerHandler.scanString();
-                ScannerHandler.clearScanner();
-                System.out.println("When was the competition? (YYYY-MM-DD)");
-                LocalDate tempDate = ScannerHandler.scanDate();
-                System.out.println("What was the placement of" +tempMember.getName());
-                int tempPlacement = ScannerHandler.scanInt(0,Integer.MAX_VALUE);
-                System.out.println("What was the lap time?");
-                double tempLap = ScannerHandler.scanDouble(Double.MIN_VALUE, Double.MAX_VALUE);
-                tempCompetition = new Competition(tempName,tempDate,tempPlacement,tempLap);
-                ((CompetitionMember) tempMember).setCompetitions(tempCompetition);
+                boolean done = false;
+                while (!done) {
+                    System.out.println("What was the name of the competition?");
+                    String tempName = ScannerHandler.scanString();
+                    ScannerHandler.clearScanner();
+                    System.out.println("When was the competition? (YYYY-MM-DD)");
+                    LocalDate tempDate = ScannerHandler.scanDate();
+                    System.out.println("What was the placement of" + tempMember.getName());
+                    int tempPlacement = ScannerHandler.scanInt(0, Integer.MAX_VALUE);
+                    System.out.println("What was the lap time?");
+                    double tempLap = ScannerHandler.scanDouble(Double.MIN_VALUE, Double.MAX_VALUE);
+                    tempCompetition = new Competition(tempName, tempDate, tempPlacement, tempLap);
+                    ((CompetitionMember) tempMember).setCompetitions(tempCompetition);
+                    done = true;
+                }
             }else {
                 System.out.println("That member isn't part of any swimming team");
             }
-        }while (tempCompetition == null);
     }
     private static void addDisciplineIfNotExists(ArrayList<SwimmingDiscipline> disciplines, String disciplineName) {
         if (disciplineName == null) {
