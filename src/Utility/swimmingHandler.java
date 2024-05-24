@@ -3,9 +3,10 @@ import Members.Competition;
 import Members.CompetitionMember;
 import Members.Member;
 import Members.SwimmingDiscipline;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class swimmingHandler {
 
@@ -114,45 +115,94 @@ public class swimmingHandler {
     }
 
     public static void showTop5BestSwimmers(){
-        while (true) {
-            System.out.println("Select a discipline to see the top 5 best swimmers:");
-            System.out.println("1. Freestyle");
-            System.out.println("2. Backstroke");
-            System.out.println("3. Butterfly");
-            System.out.println("4. Breaststroke");
-            System.out.println("0. Exit");
-            int choice = ScannerHandler.scanInt(0,4);
-            String disciplineName = null;
-            switch (choice) {
+        ArrayList<CompetitionMember> tempTeam = new ArrayList<>();
+        do {
+            System.out.println("Select a team to see the top 5 best swimmers for: ");
+            System.out.println("Press 1 for the Junior Team");
+            System.out.println("Press 2 for the Senior Team");
+            System.out.println("Press 0 to go back");
+            int answer = ScannerHandler.scanInt(0, 2);
+            switch (answer) {
                 case 1:
-                    disciplineName = "Freestyle";
+                    for (Member member : memberHandler.juniorTeam) {
+                        if (member instanceof CompetitionMember) {
+                            tempTeam.add((CompetitionMember) member);
+                        }
+                    }
                     break;
                 case 2:
-                    disciplineName = "Backstroke";
+                    for (Member member : memberHandler.seniorTeam) {
+                        if (member instanceof CompetitionMember) {
+                            tempTeam.add((CompetitionMember) member);
+                        }
+                    }
+                    break;
+                case 0:
+                    return;
+            }
+        }while (tempTeam.isEmpty());
+        String disciplineName = null;
+        do {
+            System.out.println("Select a discipline to see the top 5 best swimmers for: ");
+            System.out.println("Press 1 for butterfly");
+            System.out.println("Press 2 for crawl");
+            System.out.println("Press 3 for back crawl");
+            System.out.println("Press 4 for breaststroke");
+            System.out.println("Press 0 to go back");
+            int choice = ScannerHandler.scanInt(0,4);
+            switch (choice) {
+                case 1:
+                    disciplineName = "butterfly";
+                    break;
+                case 2:
+                    disciplineName = "crawl";
                     break;
                 case 3:
-                    disciplineName = "Butterfly";
+                    disciplineName = "back crawl";
                     break;
                 case 4:
-                    disciplineName = "Breaststroke";
+                    disciplineName = "breaststroke";
                     break;
-                case 5:
-                    System.out.println("Exiting...");
+                case 0:
                     return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    continue;
             }
+        } while(disciplineName == null);
+        printTop5MembersByDiscipline(tempTeam, disciplineName);
+    }
 
-            if (disciplineName != null) {
-                ArrayList<SwimmingDiscipline> top5BestSwimmers = memberHandler.getTop5BestSwimmersForDiscipline(team, disciplineName);
-
-                System.out.println("Top 5 Best Swimmers for Discipline: " + disciplineName);
-                for (SwimmingDiscipline discipline : top5BestSwimmers) {
-                    System.out.println(discipline);
+    public static void printTop5MembersByDiscipline(ArrayList<CompetitionMember> team, String disciplineName) {
+        ArrayList<CompetitionMember> membersForDiscipline = new ArrayList<>();
+        for (CompetitionMember member : team) {
+            for (SwimmingDiscipline discipline : member.getSwimmingDisciplines()) {
+                if (discipline.getDiscipleName().equals(disciplineName)) {
+                    membersForDiscipline.add(member);
+                    break;
                 }
-                System.out.println();
             }
         }
+        Collections.sort(membersForDiscipline, new Comparator<CompetitionMember>() {
+            public int compare(CompetitionMember member1, CompetitionMember member2) {
+                double bestTime1 = getBestTimeForDiscipline(member1, disciplineName);
+                double bestTime2 = getBestTimeForDiscipline(member2, disciplineName);
+                return Double.compare(bestTime1, bestTime2);
+            }
+        });
+
+        System.out.println("Top 5 members for discipline: " + disciplineName);
+        for (int i = 0; i < Math.min(5, membersForDiscipline.size()); i++) {
+            CompetitionMember member = membersForDiscipline.get(i);
+            double bestTime = getBestTimeForDiscipline(member, disciplineName);
+            System.out.println((i + 1) + ". " + member.getName() + ", Best Time: " + bestTime);
+        }
+        System.out.println();
+    }
+
+    private static double getBestTimeForDiscipline(CompetitionMember member, String disciplineName) {
+        for (SwimmingDiscipline discipline : member.getSwimmingDisciplines()) {
+            if (discipline.getDiscipleName().equals(disciplineName)) {
+                return discipline.getBestTime();
+            }
+        }
+        return Double.MAX_VALUE;
     }
 }

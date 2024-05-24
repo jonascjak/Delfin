@@ -117,6 +117,7 @@ public class memberHandler{
                     return;
             }
             System.out.println("Member updated successfully!");
+            Filehandler.writeMembersToFile(memberList);
         }
     }
     public static void deleteMember(){
@@ -222,44 +223,4 @@ public class memberHandler{
             System.out.println(member);
         }
     }
-
-    public static ArrayList<CompetitionMember> getTop5BestSwimmersForDiscipline(ArrayList<CompetitionMember> team, String disciplineName) {
-       ArrayList<CompetitionMember> memberList = new ArrayList<>();
-      /*  for (CompetitionMember teamMember : team) {
-            for (SwimmingDiscipline discipline : teamMember.getSwimmingDisciplines()) {
-                if (discipline.getDiscipleName().equals(disciplineName)) {
-                    memberList.add(teamMember);
-                }
-            }
-        }
-public static ArrayList<CompetitionMember> getTop5BestSwimmersForDiscipline(ArrayList<CompetitionMember> team, String disciplineName) {
-        ArrayList<MemberDiscipline> memberDisciplines = new ArrayList<>();
-
-        // Collect all disciplines of the given type from all team members
-        for (CompetitionMember teamMember : team) {
-            for (SwimmingDiscipline discipline : teamMember.getSwimmingDisciplines()) {
-                if (discipline.getDisciplineName().equals(disciplineName)) {
-                    memberDisciplines.add(new MemberDiscipline(teamMember, discipline));
-                }
-            }
-        }
-
-        // Sort the member disciplines by bestTime in ascending order
-        Collections.sort(memberDisciplines);
-
-        // Extract the top 5 team members
-        ArrayList<CompetitionMember> top5Members = new ArrayList<>();
-        for (int i = 0; i < Math.min(5, memberDisciplines.size()); i++) {
-            top5Members.add(memberDisciplines.get(i).getMember());
-        }
-
-        return top5Members;
-    }
-
-
-        Collections.sort(memberList.get());*/
-        return new ArrayList<>(memberList.subList(0, Math.min(5, memberList.size())));
-    }
-
-
 }

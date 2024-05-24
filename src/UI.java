@@ -85,7 +85,7 @@ public class UI {
         System.out.println("press 1 to see all Members on a team ");
         System.out.println("press 2 to register a new time for a member");
         System.out.println("press 3 to register a new competition for a member");
-        System.out.println("Press 4 to ");
+        System.out.println("Press 4 to see top 5 best swimmers from a team");
         System.out.println("press 0 to go back");
         int choice = ScannerHandler.scanInt(0,4);
         switch (choice){
@@ -105,6 +105,7 @@ public class UI {
                 swimmingHandler.addCompetition();
                 break;
             case 4:
+                swimmingHandler.showTop5BestSwimmers();
                 break;
             case 0:
                 loginMenu();
