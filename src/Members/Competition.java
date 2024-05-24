@@ -6,11 +6,13 @@ import java.time.LocalDate;
 public class Competition implements Serializable {
     private String competitionName;
     private LocalDate competitionDate;
+    private int placement;
     private double lapTime; // lap time in seconds
 
-    public Competition(String competitionName, LocalDate competitionDate, double lapTime) {
+    public Competition(String competitionName, LocalDate competitionDate,int placement,double lapTime) {
         this.competitionName = competitionName;
         this.competitionDate = competitionDate;
+        this.placement = placement;
         this.lapTime = lapTime;
     }
 
@@ -28,6 +30,6 @@ public class Competition implements Serializable {
 
     @Override
     public String toString() {
-        return "Competition Name: " + competitionName + "\nDate: " + competitionDate + "\nLap Time: " + lapTime + " seconds";
+        return "Competition Name: " + competitionName + "\nDate: " + competitionDate +"\nPlacement: "+placement+ "\nLap Time: " + lapTime + " seconds";
     }
 }

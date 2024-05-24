@@ -83,8 +83,8 @@ public class UI {
     public static void coachMenu(){
         System.out.println("Welcome coach, what would you like to do?");
         System.out.println("press 1 to see all Members on a team ");
-        System.out.println("press 2 to register new time for a member");
-        System.out.println("press 3 to ");
+        System.out.println("press 2 to register a new time for a member");
+        System.out.println("press 3 to register a new competition for a member");
         System.out.println("Press 4 to ");
         System.out.println("press 0 to go back");
         int choice = ScannerHandler.scanInt(0,4);
@@ -102,6 +102,7 @@ public class UI {
                 swimmingHandler.newTime();
                 break;
             case 3:
+                swimmingHandler.addCompetition();
                 break;
             case 4:
                 break;
