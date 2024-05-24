@@ -50,9 +50,10 @@ public class CompetitionMember extends Member {
         for (SwimmingDiscipline discipline : swimmingDisciplines) {
             allString.append("\n").append(discipline.toString());
         }
-
-        for (Competition competition : competitions) {
-            allString.append("\n").append(competition.toString());
+        if(this.competitions != null) {
+            for (Competition competition : competitions) {
+                allString.append("\n").append(competition.toString());
+            }
         }
         return allString.toString();
     }
